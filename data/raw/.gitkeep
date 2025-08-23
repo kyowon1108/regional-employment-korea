@@ -1,0 +1,2 @@
+# This file ensures that the data/raw directory is included in Git
+# even when it's empty, preserving the folder structure
