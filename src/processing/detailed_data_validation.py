@@ -8,6 +8,11 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 
+# Set up paths - updated for new folder structure
+ROOT_DIR = Path(__file__).parent.parent.parent
+DATA_PROCESSED_DIR = ROOT_DIR / "data" / "processed"
+DATA_RAW_DIR = ROOT_DIR / "data" / "raw"
+
 def load_csv_with_encoding(file_path, encoding='cp949'):
     """인코딩을 시도하여 CSV 파일을 로드합니다."""
     try:
@@ -24,8 +29,8 @@ def detailed_e9_comparison():
     print("=== E9 체류자 데이터 상세 비교 ===")
     
     # 최종 데이터 로드
-    final_df = load_csv_with_encoding("data/processed/최종_통합데이터_수정_cp949.csv")
-    e9_df = load_csv_with_encoding("data/raw/시군구별_E9_체류자(2014~2023).csv")
+    final_df = load_csv_with_encoding(DATA_PROCESSED_DIR / "최종_통합데이터_수정_cp949.csv")
+    e9_df = load_csv_with_encoding(DATA_RAW_DIR / "시군구별_E9_체류자(2014~2023).csv")
     
     if final_df is None or e9_df is None:
         return
@@ -73,8 +78,8 @@ def detailed_industry_comparison():
     """산업별 고용 데이터 상세 비교"""
     print("\n=== 산업별 고용 데이터 상세 비교 ===")
     
-    final_df = load_csv_with_encoding("data/processed/최종_통합데이터_수정_cp949.csv")
-    industry_df = load_csv_with_encoding("data/raw/산업별 고용 시군구 2025-08-22.csv")
+    final_df = load_csv_with_encoding(DATA_PROCESSED_DIR / "최종_통합데이터_수정_cp949.csv")
+    industry_df = load_csv_with_encoding(DATA_RAW_DIR / "산업별 고용 시군구 2025-08-22.csv")
     
     if final_df is None or industry_df is None:
         return
@@ -122,8 +127,8 @@ def employment_rate_analysis():
     """고용률 데이터 분석"""
     print("\n=== 고용률 데이터 분석 ===")
     
-    final_df = load_csv_with_encoding("data/processed/최종_통합데이터_수정_cp949.csv")
-    employment_df = load_csv_with_encoding("data/raw/시군구_연령별_취업자_및_고용률.csv")
+    final_df = load_csv_with_encoding(DATA_PROCESSED_DIR / "최종_통합데이터_수정_cp949.csv")
+    employment_df = load_csv_with_encoding(DATA_RAW_DIR / "시군구_연령별_취업자_및_고용률.csv")
     
     if final_df is None or employment_df is None:
         return
@@ -166,7 +171,7 @@ def data_quality_check():
     """데이터 품질 검사"""
     print("\n=== 데이터 품질 검사 ===")
     
-    final_df = load_csv_with_encoding("data/processed/최종_통합데이터_수정_cp949.csv")
+    final_df = load_csv_with_encoding(DATA_PROCESSED_DIR / "최종_통합데이터_수정_cp949.csv")
     
     if final_df is None:
         return
