@@ -5,8 +5,8 @@ Utility Modules
 Contains common utility and test modules
 """
 
-from . import test_data
+# Test data module removed - not used in production
 
 __all__ = [
-    'test_data'
+    # No active utility modules currently
 ]
