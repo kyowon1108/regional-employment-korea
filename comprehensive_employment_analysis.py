@@ -27,7 +27,20 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 from scipy import stats
 import warnings
+import os
+from pathlib import Path
+
 warnings.filterwarnings('ignore')
+
+# 프로젝트 루트 디렉토리 설정
+PROJECT_ROOT = Path(__file__).parent
+DATA_DIR = PROJECT_ROOT / "data"
+PROCESSED_DATA_DIR = DATA_DIR / "processed"
+OUTPUTS_DIR = PROJECT_ROOT / "outputs"
+
+# 필요한 디렉토리 생성
+PROCESSED_DATA_DIR.mkdir(parents=True, exist_ok=True)
+OUTPUTS_DIR.mkdir(parents=True, exist_ok=True)
 
 # 한글 폰트 설정
 plt.rcParams['font.family'] = 'AppleGothic'
@@ -41,7 +54,8 @@ print("1. 2019-2023년 전체 기간 고용률 데이터 보유 지자체 식별
 print("-" * 60)
 
 # Excel 파일에서 2019-2020년 데이터 확인
-df_excel = pd.read_excel('citycounty_gender_laborforce_summary.xlsx')
+excel_file_path = PROJECT_ROOT / 'citycounty_gender_laborforce_summary.xlsx'
+df_excel = pd.read_excel(excel_file_path)
 df_excel_clean = df_excel.iloc[1:].reset_index(drop=True)
 df_excel_clean.columns = ['시군구', '성별'] + [col for col in df_excel_clean.columns[2:]]
 df_excel_clean = df_excel_clean.replace('-', np.nan)
@@ -59,7 +73,8 @@ regions_with_2019_2020 = df_2019_2020.dropna(subset=year_2019_2020_cols)['시군
 print(f"2019-2020년 고용률 데이터 보유 지자체: {len(regions_with_2019_2020)}개")
 
 # 기존 통합 데이터에서 2021-2023년 고용률 데이터 확인
-df_integrated = pd.read_csv('data/processed/최종_통합데이터_수정_utf-8.csv')
+integrated_data_path = PROCESSED_DATA_DIR / '최종_통합데이터_수정_utf-8.csv'
+df_integrated = pd.read_csv(integrated_data_path)
 
 # 지자체명 매칭 함수
 def clean_region_name(name):
@@ -400,7 +415,8 @@ ax9.set_xlabel('연도', fontsize=12)
 ax9.set_ylabel('고용률 (%)', fontsize=12)
 
 plt.tight_layout()
-plt.savefig('outputs/2019_2023_종합_E9고용률_분석결과.png', dpi=300, bbox_inches='tight')
+output_image_path = OUTPUTS_DIR / '2019_2023_종합_E9고용률_분석결과.png'
+plt.savefig(output_image_path, dpi=300, bbox_inches='tight')
 plt.show()
 
 # 8. 데이터 저장
@@ -408,7 +424,8 @@ print(f"\n8. 결과 저장")
 print("-" * 60)
 
 # 분석 데이터 저장
-df_final.to_csv('data/processed/2019_2023_전체기간_분석데이터.csv', index=False, encoding='utf-8')
+analysis_data_path = PROCESSED_DATA_DIR / '2019_2023_전체기간_분석데이터.csv'
+df_final.to_csv(analysis_data_path, index=False, encoding='utf-8')
 
 # 결과 요약 저장
 results_summary = f"""
@@ -444,7 +461,8 @@ results_summary = f"""
    - 상위 지역(파랑)과 하위 지역(주황)의 명확한 구분 확인
 """
 
-with open('outputs/2019_2023_종합분석_요약.txt', 'w', encoding='utf-8') as f:
+summary_file_path = OUTPUTS_DIR / '2019_2023_종합분석_요약.txt'
+with open(summary_file_path, 'w', encoding='utf-8') as f:
     f.write(results_summary)
 
 # 계수 결과 저장
@@ -456,7 +474,8 @@ coef_results = pd.DataFrame({
             model_enh.coef_[0], model_enh.coef_[1], model_enh.coef_[2]]
 })
 
-coef_results.to_csv('outputs/2019_2023_패널분석_계수결과.csv', index=False, encoding='utf-8')
+coef_results_path = OUTPUTS_DIR / '2019_2023_패널분석_계수결과.csv'
+coef_results.to_csv(coef_results_path, index=False, encoding='utf-8')
 
 # 지역별 순위 저장
 region_ranking = pd.DataFrame({
@@ -465,7 +484,8 @@ region_ranking = pd.DataFrame({
     '평균고용률': region_employment.values
 })
 
-region_ranking.to_csv('outputs/2019_2023_지역별_고용률_순위.csv', index=False, encoding='utf-8')
+region_ranking_path = OUTPUTS_DIR / '2019_2023_지역별_고용률_순위.csv'
+region_ranking.to_csv(region_ranking_path, index=False, encoding='utf-8')
 
 print(f"✅ 2019-2023년 전체 기간 통합 E9-고용률 분석 완료!")
 print(f"✅ 최종 분석 대상: {len(final_regions)}개 지자체")

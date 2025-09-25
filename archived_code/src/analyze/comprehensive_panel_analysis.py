@@ -3,6 +3,13 @@
 """
 Comprehensive Panel Data Analysis Module - Full Dataset Analysis
 전체 데이터(2019-2023)를 활용한 완전한 패널분석 (불균형 패널 포함)
+
+⚠️  ARCHIVED CODE ⚠️
+이 파일은 아카이브되었으며 현재 사용되지 않습니다.
+메인 분석은 프로젝트 루트의 comprehensive_employment_analysis.py를 사용하세요.
+
+경로 수정이 필요한 경우:
+- ROOT_DIR = Path(__file__).parent.parent.parent.parent  (archived_code/src/에서 프로젝트 루트까지)
 """
 
 import pandas as pd
