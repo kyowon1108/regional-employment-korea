@@ -1,3 +1,26 @@
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+고품질 지자체 대상 E9-고용률 관계 패널분석 스크립트
+
+이 스크립트는 2021-2023년 완전한 고용률 데이터를 보유한 153개 지자체를 대상으로
+E9 체류자수와 지역별 고용률 간의 관계를 Two-way Fixed Effects 패널분석으로 분석합니다.
+
+주요 기능:
+- Excel 데이터에서 고품질 지자체 선별
+- Two-way Fixed Effects 패널분석
+- 상위/하위 지역 차별적 시각화 (파랑/주황)
+- 종합 분석 결과 출력 및 저장
+
+실행 방법:
+    python comprehensive_employment_analysis.py
+
+출력:
+    - outputs/2019_2023_종합_E9고용률_분석결과.png
+    - outputs/2019_2023_종합분석_요약.txt
+    - 기타 CSV 결과 파일들
+"""
+
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
