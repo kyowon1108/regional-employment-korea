@@ -1,0 +1,39 @@
+Fixed Effects Panel Regression Results
+=====================================
+
+Model: employment_rate = β × log(1 + e9_count) + α_i + γ_t + ε
+- α_i: Municipality fixed effects
+- γ_t: Year fixed effects
+- Standard errors clustered by municipality
+
+                          PanelOLS Estimation Summary                           
+================================================================================
+Dep. Variable:        employment_rate   R-squared:                        0.0032
+Estimator:                   PanelOLS   R-squared (Between):              0.3153
+No. Observations:                 990   R-squared (Within):               0.0016
+Date:                Fri, Sep 26 2025   R-squared (Overall):              0.1897
+Time:                        19:47:00   Log-likelihood                   -2696.7
+Cov. Estimator:             Clustered                                           
+                                        F-statistic:                      2.5463
+Entities:                         198   P-value                           0.1110
+Avg Obs:                       5.0000   Distribution:                   F(1,787)
+Min Obs:                       5.0000                                           
+Max Obs:                       5.0000   F-statistic (robust):             1.0939
+                                        P-value                           0.2959
+Time periods:                       5   Distribution:                   F(1,787)
+Avg Obs:                       198.00                                           
+Min Obs:                       198.00                                           
+Max Obs:                       198.00                                           
+                                                                                
+                             Parameter Estimates                              
+==============================================================================
+            Parameter  Std. Err.     T-stat    P-value    Lower CI    Upper CI
+------------------------------------------------------------------------------
+log_e9         1.1933     1.1410     1.0459     0.2959     -1.0464      3.4330
+==============================================================================
+
+F-test for Poolability: 328.53
+P-value: 0.0000
+Distribution: F(201,787)
+
+Included effects: Entity, Time
